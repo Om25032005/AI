@@ -1,0 +1,60 @@
+public class CalculatorController {
+    public Decimal num1 { get; set; }
+    public Decimal num2 { get; set; }
+    public String operation { get; set; }
+    public Decimal result { get; set; }
+
+    public void calculate() {
+        if (operation == 'add') {
+            result = num1 + num2;
+        } else if (operation == 'subtract') {
+            result = num1 - num2;
+        } else if (operation == 'multiply') {
+            result = num1 * num2;
+        } else if (operation == 'divide') {
+            if (num2 != 0) {
+                result = num1 / num2;
+            } else {
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Cannot divide by zero.'));
+            }
+        } else {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid operation.'));
+        }
+    }
+
+    public List<SelectOption> getOperations() {
+        return new List<SelectOption>{
+            new SelectOption('add', 'Add'),
+            new SelectOption('subtract', 'Subtract'),
+            new SelectOption('multiply', 'Multiply'),
+            new SelectOption('divide', 'Divide')
+        };
+    }
+}
+
+
+
+
+
+
+
+
+<apex:page controller="CalculatorController">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Simple Calculator">
+            <apex:pageBlockSection columns="2">
+                <apex:inputText label="Number 1" value="{!num1}" />
+                <apex:inputText label="Number 2" value="{!num2}" />
+                <apex:selectList value="{!operation}" size="1" label="Operation">
+                    <apex:selectOptions value="{!operations}" />
+                </apex:selectList>
+                <apex:commandButton value="Calculate" action="{!calculate}" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Result" columns="1">
+                <apex:outputText value="Result: {!result}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
