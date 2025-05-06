@@ -3,16 +3,15 @@
 #include <queue>
 using namespace std;
 
-const int MAX = 100; // maximum number of vertices
-vector<int> adj[MAX]; // adjacency list
-bool visited[MAX];    // visited array
+const int MAX = 100; 
+vector<int> adj[MAX]; 
+bool visited[MAX];
 
 void addEdge(int u, int v) {
     adj[u].push_back(v);
-    adj[v].push_back(u); // because undirected
+    adj[v].push_back(u);
 }
 
-// Recursive DFS
 void dfs(int node) {
     visited[node] = true;
     cout << node << " ";
@@ -24,9 +23,7 @@ void dfs(int node) {
     }
 }
 
-// Iterative BFS
 void bfs(int start) {
-    
     queue<int> q;
     q.push(start);
     visited[start] = true;
@@ -46,7 +43,6 @@ void bfs(int start) {
 }
 
 int main() {
-    // Create a simple graph
     addEdge(0, 1);
     addEdge(0, 2);
     addEdge(1, 3);
@@ -55,10 +51,10 @@ int main() {
     addEdge(2, 6);
 
     cout << "DFS starting from node 0: ";
-    fill(visited, visited + MAX, false); // reset before DFS
+    fill(visited, visited + MAX, false);
     dfs(0);
     
-    fill(visited, visited + MAX, false); // reset visited array
+    fill(visited, visited + MAX, false);
     cout << "\nBFS starting from node 0: ";
     bfs(0);
 
