@@ -3,9 +3,8 @@
 #include <climits>
 using namespace std;
 
-const int V = 5; // Number of vertices
+const int V = 5;
 
-// Function to find the vertex with the smallest distance that hasn't been visited
 int findMinDistance(const vector<int>& dist, const vector<bool>& visited) {
     int min = INT_MAX;
     int minIndex = -1;
@@ -20,21 +19,17 @@ int findMinDistance(const vector<int>& dist, const vector<bool>& visited) {
     return minIndex;
 }
 
-// Dijkstra's algorithm function
 void dijkstra(int graph[V][V], int src) {
-    vector<int> dist(V, INT_MAX);     // Stores shortest distances from source to each vertex
-    vector<bool> visited(V, false);   // True if vertex is included in shortest path tree
+    vector<int> dist(V, INT_MAX);
+    vector<bool> visited(V, false);
 
-    dist[src] = 0; // Distance from source to itself is always 0
+    dist[src] = 0;
 
-    // Find shortest path to all vertices
     for (int count = 0; count < V - 1; count++) {
-        int u = findMinDistance(dist, visited); // Get the nearest unvisited vertex
+        int u = findMinDistance(dist, visited);
         visited[u] = true;
 
-        // Update distances of adjacent vertices of u
         for (int v = 0; v < V; v++) {
-            // Check if there's an edge from u to v, and v is unvisited, and the path through u is shorter
             if (!visited[v] && graph[u][v] && dist[u] != INT_MAX &&
                 dist[u] + graph[u][v] < dist[v]) {
                 dist[v] = dist[u] + graph[u][v];
@@ -42,7 +37,6 @@ void dijkstra(int graph[V][V], int src) {
         }
     }
 
-    // Print shortest distances
     cout << "Vertex\tDistance from Source " << src << endl;
     for (int i = 0; i < V; i++) {
         cout << i << "\t" << dist[i] << endl;
@@ -50,7 +44,6 @@ void dijkstra(int graph[V][V], int src) {
 }
 
 int main() {
-    // Example graph represented using an adjacency matrix
     int graph[V][V] = {
         {0, 10, 0, 0, 5},
         {10, 0, 1, 0, 2},
@@ -59,7 +52,7 @@ int main() {
         {5, 2, 0, 3, 0}
     };
 
-    int source = 0; // Starting node
+    int source = 0;
     dijkstra(graph, source);
 
     return 0;
