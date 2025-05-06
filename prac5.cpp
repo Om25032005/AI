@@ -3,16 +3,15 @@
 #include <algorithm>
 using namespace std;
 
-// Convert user input to lowercase for easier comparison
+
 string toLower(string str) {
     transform(str.begin(), str.end(), str.begin(), ::tolower);
     return str;
 }
 
-// Function to generate the chatbot response based on user input
-string getResponse(string input) {
-    input = toLower(input);  // Convert input to lowercase for easier matching
 
+string getResponse(string input) {
+    input = toLower(input); 
     if (input.find("hello") != string::npos || input.find("hi") != string::npos)
         return "Hello! How can I assist you today? Please type 'exit' to quit.";
     else if (input.find("price") != string::npos)
